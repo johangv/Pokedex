@@ -1,5 +1,6 @@
 class PokemonEntity {
   final int? id;
+  final int? baseExperience;
   final String? name;
   final int? weight;
   final int? height;
@@ -8,6 +9,7 @@ class PokemonEntity {
   final Sprites? sprites;
 
   PokemonEntity({
+    this.baseExperience,
     this.id,
     this.name,
     this.weight,
@@ -19,12 +21,17 @@ class PokemonEntity {
 
   PokemonEntity.fromJson(Map<String, dynamic> json)
       : id = json['id'],
+        baseExperience = json['base_experience'],
         name = json['name'],
         weight = json['weight'],
         height = json['height'],
-        abilities = json['abilities'],
-        types = json['types'],
-        sprites = json['sprites'];
+        abilities = (json['abilities'] as List<dynamic>)
+            .map((e) => Abilities.fromJson(e))
+            .toList(),
+        types = (json['types'] as List<dynamic>)
+            .map((e) => Types.fromJson(e))
+            .toList(),
+        sprites = Sprites.fromJson(json['sprites']);
 }
 
 class Abilities {
@@ -34,7 +41,7 @@ class Abilities {
   Abilities({this.ability, this.slot});
 
   Abilities.fromJson(Map<String, dynamic> json)
-      : ability = json['ability'],
+      : ability = Ability.fromJson(json['ability']),
         slot = json['slot'];
 }
 
@@ -54,7 +61,7 @@ class Types {
 
   Types.fromJson(Map<String, dynamic> json)
       : slot = json['slot'],
-        type = json['type'];
+        type = Ability.fromJson(json['type']);
 }
 
 class Sprites {
@@ -62,7 +69,8 @@ class Sprites {
 
   Sprites({this.other});
 
-  Sprites.fromJson(Map<String, dynamic> json) : other = json['other'];
+  Sprites.fromJson(Map<String, dynamic> json)
+      : other = OtherSprite.fromJson(json['other']);
 }
 
 class OtherSprite {
@@ -71,7 +79,7 @@ class OtherSprite {
   OtherSprite({this.officialArtwork});
 
   OtherSprite.fromJson(Map<String, dynamic> json)
-      : officialArtwork = json['official-artwork'];
+      : officialArtwork = OfficialArtwork.fromJson(json['official-artwork']);
 }
 
 class OfficialArtwork {
