@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:pokedex_app/features/pokemon/domain/entities/pokemon_entity.dart';
-import 'package:pokedex_app/features/pokemon/presentation/widgets/pokemon_stat_item_widget.dart';
-import '../utils/pokemon_stat_controller.dart';
+import 'package:pokedex_app/features/pokemon/presentation/widgets/pokemonStatTableWidget/pokemon_stat_item_widget.dart';
+import '../../utils/pokemon_stat_controller.dart';
 
 class PokemonStatTableWidget extends StatelessWidget {
   final PokemonEntity pokemon;
@@ -18,12 +18,12 @@ class PokemonStatTableWidget extends StatelessWidget {
       pokemon.weight!,
     );
 
-    print(pokemon.abilities![0].ability!.name!);
-
     List<Map<String, dynamic>> pokemonStats =
         pokemonStatController.getPokemonStats();
 
     return Container(
+      height: 290.0,
+      width: 340.0,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(10.0),
         color: Colors.white,
