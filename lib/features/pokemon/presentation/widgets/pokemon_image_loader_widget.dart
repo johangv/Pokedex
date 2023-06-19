@@ -2,8 +2,10 @@ import 'package:flutter/material.dart';
 
 class PokemonImageLoader extends StatelessWidget {
   final String url;
-
-  const PokemonImageLoader({super.key, required this.url});
+  final double? width;
+  final EdgeInsetsGeometry? margin;
+  const PokemonImageLoader(
+      {super.key, required this.url, this.width, this.margin});
 
   @override
   Widget build(BuildContext context) {
@@ -12,24 +14,24 @@ class PokemonImageLoader extends StatelessWidget {
       builder: (BuildContext context, AsyncSnapshot<void> snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
           return Container(
-            margin: const EdgeInsets.only(top: 90.0),
+            margin: margin,
             child: const CircularProgressIndicator(
               color: Colors.red,
             ),
           );
         } else if (snapshot.hasError) {
-          return const Image(
-            image: AssetImage(
+          return Image(
+            image: const AssetImage(
               "assets/images/types/no_icon.png",
             ),
-            width: 250.0,
+            width: width,
           );
         } else {
           return Image(
             image: NetworkImage(
               url,
             ),
-            width: 250.0,
+            width: width,
           );
         }
       },
