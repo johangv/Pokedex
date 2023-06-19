@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:pokedex_app/features/utils/app_colors.dart';
 
 class PokemonButtonWidget extends StatelessWidget {
   final String imageUrl;
@@ -12,6 +13,8 @@ class PokemonButtonWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final AppColors appColors = AppColors();
+
     return GestureDetector(
       onTap: onTap,
       child: Container(
@@ -21,7 +24,7 @@ class PokemonButtonWidget extends StatelessWidget {
         padding: const EdgeInsets.all(5.0),
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(10),
-          color: isSelected ? Colors.red : const Color(0xfff2f2f2),
+          color: isSelected ? Colors.red : appColors.lightGray,
         ),
         child: Image(
           image: NetworkImage(imageUrl),

@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import '../../../../utils/app_colors.dart';
+
 class PokemonStatItemWidget extends StatelessWidget {
   final String stat;
   final String value;
@@ -8,6 +10,8 @@ class PokemonStatItemWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final AppColors appColors = AppColors();
+
     return Container(
       margin: const EdgeInsets.only(top: 20.0),
       child: Row(
@@ -17,8 +21,8 @@ class PokemonStatItemWidget extends StatelessWidget {
               stat,
               maxLines: 1,
               overflow: TextOverflow.ellipsis,
-              style: const TextStyle(
-                color: Color(0xff262626),
+              style: TextStyle(
+                color: appColors.darkGray,
                 fontWeight: FontWeight.bold,
               ),
             ),
@@ -28,8 +32,8 @@ class PokemonStatItemWidget extends StatelessWidget {
               value,
               maxLines: 1,
               overflow: TextOverflow.ellipsis,
-              style: const TextStyle(
-                color: Color(0xff262626),
+              style: TextStyle(
+                color: appColors.darkGray,
               ),
             ),
           ),

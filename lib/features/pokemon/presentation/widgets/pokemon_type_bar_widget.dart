@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:pokedex_app/features/pokemon/domain/entities/pokemon_entity.dart';
 
+import '../../../utils/app_colors.dart';
 import '../../../utils/util_methods.dart';
 
 class PokemonTypeBarWidget extends StatelessWidget {
@@ -12,6 +13,7 @@ class PokemonTypeBarWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     List<Image> pokemonTypeImages = [];
+    final AppColors appColors = AppColors();
 
     //Get my list of the selected type pokemon images
     for (Types type in types) {
@@ -36,9 +38,9 @@ class PokemonTypeBarWidget extends StatelessWidget {
           const SizedBox(width: 10.0),
           Text(
             name.toUpperCase(),
-            style: const TextStyle(
+            style: TextStyle(
               fontWeight: FontWeight.bold,
-              color: Color(0xff262626),
+              color: appColors.darkGray,
               fontSize: 20.0,
             ),
           ),

@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:pokedex_app/features/pokemon/domain/entities/pokemon_entity.dart';
 import 'package:pokedex_app/features/pokemon/presentation/widgets/viewPokemonListWidget/pokemon_button_widget.dart';
 
+import '../../../../utils/app_colors.dart';
+
 class ViewPokemonListWidget extends StatefulWidget {
   final List<PokemonEntity> pokemonList;
   final Function(int selectedIndex) setSelectedIndex;
@@ -14,6 +16,7 @@ class ViewPokemonListWidget extends StatefulWidget {
 
 class _ViewPokemonListWidgetState extends State<ViewPokemonListWidget> {
   int selectedIndex = -1;
+  final AppColors appColors = AppColors();
 
   @override
   Widget build(BuildContext context) {
@@ -24,12 +27,12 @@ class _ViewPokemonListWidgetState extends State<ViewPokemonListWidget> {
         crossAxisAlignment: CrossAxisAlignment.center,
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          const Padding(
-              padding: EdgeInsets.only(top: 20.0, bottom: 10.0),
+          Padding(
+              padding: const EdgeInsets.only(top: 20.0, bottom: 10.0),
               child: Text(
                 "OTHERS",
                 style: TextStyle(
-                    color: Color(0xff262626),
+                    color: appColors.darkGray,
                     fontWeight: FontWeight.bold,
                     fontSize: 20.0),
               )),
