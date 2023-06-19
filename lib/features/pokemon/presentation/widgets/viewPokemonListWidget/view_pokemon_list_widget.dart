@@ -15,7 +15,7 @@ class ViewPokemonListWidget extends StatefulWidget {
 }
 
 class _ViewPokemonListWidgetState extends State<ViewPokemonListWidget> {
-  int selectedIndex = -1;
+  int selectedIndex = 0;
   final AppColors appColors = AppColors();
 
   @override
