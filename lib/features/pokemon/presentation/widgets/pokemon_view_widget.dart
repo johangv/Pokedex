@@ -32,6 +32,8 @@ class PokemonViewWidget extends StatelessWidget {
                   top: 20.0,
                   child: PokemonImageLoader(
                     url: pokemon.sprites!.other!.officialArtwork!.frontDefault!,
+                    width: 250.0,
+                    margin: const EdgeInsets.only(top: 90.0),
                   ),
                 ),
               ],

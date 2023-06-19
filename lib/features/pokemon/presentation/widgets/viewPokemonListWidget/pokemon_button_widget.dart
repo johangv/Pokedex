@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:pokedex_app/features/pokemon/presentation/widgets/pokemon_image_loader_widget.dart';
 import 'package:pokedex_app/features/utils/app_colors.dart';
 
 class PokemonButtonWidget extends StatelessWidget {
@@ -26,9 +27,9 @@ class PokemonButtonWidget extends StatelessWidget {
           borderRadius: BorderRadius.circular(10),
           color: isSelected ? Colors.red : appColors.lightGray,
         ),
-        child: Image(
-          image: NetworkImage(imageUrl),
-          width: 80.0,
+        child: PokemonImageLoader(
+          url: imageUrl,
+          width: 10.0,
         ),
       ),
     );
