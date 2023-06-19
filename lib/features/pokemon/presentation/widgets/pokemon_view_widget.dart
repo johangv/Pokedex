@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:pokedex_app/features/pokemon/domain/entities/pokemon_entity.dart';
 import 'package:pokedex_app/features/pokemon/presentation/widgets/pokemonStatTableWidget/pokemon_stat_table_widget.dart';
+import 'package:pokedex_app/features/pokemon/presentation/widgets/pokemon_image_loader_widget.dart';
 import 'package:pokedex_app/features/pokemon/presentation/widgets/pokemon_type_bar_widget.dart';
 
 class PokemonViewWidget extends StatelessWidget {
@@ -29,11 +30,8 @@ class PokemonViewWidget extends StatelessWidget {
                 //Selected pokemon image
                 Positioned(
                   top: 20.0,
-                  child: Image(
-                    image: NetworkImage(
-                      pokemon.sprites!.other!.officialArtwork!.frontDefault!,
-                    ),
-                    width: 250.0,
+                  child: PokemonImageLoader(
+                    url: pokemon.sprites!.other!.officialArtwork!.frontDefault!,
                   ),
                 ),
               ],
