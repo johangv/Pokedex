@@ -13,10 +13,12 @@ class PokemonImageLoader extends StatelessWidget {
       future: precacheImage(NetworkImage(url), context),
       builder: (BuildContext context, AsyncSnapshot<void> snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
-          return Container(
-            margin: margin,
-            child: const CircularProgressIndicator(
-              color: Colors.red,
+          return Center(
+            child: Container(
+              margin: margin,
+              child: const CircularProgressIndicator(
+                color: Colors.red,
+              ),
             ),
           );
         } else if (snapshot.hasError) {

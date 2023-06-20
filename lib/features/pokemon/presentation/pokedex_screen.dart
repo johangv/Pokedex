@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:pokedex_app/dependencies.dart';
+import 'package:pokedex_app/features/pokemon/domain/entities/pokemon_entity.dart';
 import 'package:pokedex_app/features/pokemon/presentation/cubit/pokemon_state.dart';
 import 'package:pokedex_app/features/pokemon/presentation/widgets/viewPokemonListWidget/view_pokemon_list_widget.dart';
 import 'package:pokedex_app/features/utils/app_colors.dart';
@@ -22,6 +23,7 @@ class PokedexScreen extends StatefulWidget {
 
 class _PokedexScreenState extends State<PokedexScreen> {
   int selectedIndex = 0;
+  List<PokemonEntity> pokemonList = [];
   final AppColors appColors = AppColors();
 
   @override
@@ -33,10 +35,13 @@ class _PokedexScreenState extends State<PokedexScreen> {
         create: (_) => getIt<PokemonCubit>()..getPokemonList(),
         child: BlocBuilder<PokemonCubit, PokemonState>(
           builder: (context, state) {
+            //If my status is loading, show the charging animation
             if (state.status == PokemonStatus.loading) {
               return const ChargingAnimation();
+              //If my status is success, show the PokedexScreen
             } else if (state.status == PokemonStatus.success) {
-              final selectedPokemon = state.pokemonList[selectedIndex];
+              pokemonList = state.pokemonList;
+              final selectedPokemon = pokemonList[selectedIndex];
               void setSelectedItem(int newIndex) {
                 setState(() {
                   selectedIndex = newIndex;
@@ -48,16 +53,14 @@ class _PokedexScreenState extends State<PokedexScreen> {
                   children: [
                     //Pokemon selected view with name, photo and stats table
                     PokemonViewWidget(pokemon: selectedPokemon),
-                    //Pokemon list view
-                    const SizedBox(
-                      height: 10.0,
-                    ),
+                    //Pokemon GridView
                     ViewPokemonListWidget(
-                        pokemonList: state.pokemonList,
+                        pokemonList: pokemonList,
                         setSelectedIndex: setSelectedItem),
                   ],
                 ),
               );
+              //If my status is error, show the error screen
             } else {
               return ErrorMessage(
                 errorMessage: state.error,

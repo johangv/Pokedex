@@ -10,11 +10,12 @@ class PokemonRepositoryImp extends PokemonRepository {
   final String unencodedPath;
 
   @override
-  Future<List<PokemonEntity>> getPokemonList() async {
+  Future<List<PokemonEntity>> getPokemonList(int offset, int limit) async {
     List<PokemonEntity> pokemonList = [];
     var client = http.Client();
 
-    final String url = "$baseUrl${unencodedPath}pokemon/?limit=40";
+    final String url =
+        "$baseUrl${unencodedPath}pokemon/?offset=$offset&limit=$limit";
 
     try {
       var response = await client.get(Uri.parse(url));
