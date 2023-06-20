@@ -29,9 +29,7 @@ class _PokemonScrollWidgetState extends State<PokemonScrollWidget> {
     super.initState();
     _scrollController.addListener(() {
       if (_scrollController.position.pixels ==
-          _scrollController.position.maxScrollExtent / 2) {
-        print("$offset");
-        print("$limit");
+          _scrollController.position.maxScrollExtent) {
         context.read<LazyPokemonCubit>().updatePokemonList(offset, limit);
       }
     });
@@ -81,13 +79,12 @@ class _PokemonScrollWidgetState extends State<PokemonScrollWidget> {
             crossAxisCount: 2,
           ),
           scrollDirection: Axis.horizontal,
-          itemCount: (widget.pokemonList.length / 4).ceil() * 2 +
-              (_loadingMore ? 2 : 0), //Two rows
+          itemCount:
+              widget.pokemonList.length + (_loadingMore ? 1 : 0), //Two rows
           itemBuilder: (BuildContext context, int index) {
             final buttonIndex = index ~/ 2 * 2 + (index % 2);
             if (buttonIndex >= widget.pokemonList.length) {
               //To fill the empty spaces if there are not enought elements
-              print("Entro");
               return const SizedBox();
             }
             //If the index is the last one, show the loading indicator
