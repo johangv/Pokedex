@@ -46,12 +46,14 @@ class _PokemonScrollWidgetState extends State<PokemonScrollWidget> {
     return BlocListener<LazyPokemonCubit, PokemonState>(
       listener: (context, state) {
         if (state.status == PokemonStatus.success) {
+          //If Charging success, add the new pokemons to the list
           setState(() {
             widget.pokemonList.addAll(state.pokemonList);
             offset = offset + 20;
             _loadingMore = false;
           });
         } else if (state.status == PokemonStatus.error) {
+          //If Charging error, show the error message
           setState(() {
             _loadingMore = false;
           });
@@ -90,7 +92,9 @@ class _PokemonScrollWidgetState extends State<PokemonScrollWidget> {
             //If the index is the last one, show the loading indicator
             if (buttonIndex == widget.pokemonList.length - 1) {
               return const Center(
-                child: CircularProgressIndicator(),
+                child: CircularProgressIndicator(
+                  color: Colors.red,
+                ),
               );
             }
             final pokemon = widget.pokemonList[buttonIndex];
