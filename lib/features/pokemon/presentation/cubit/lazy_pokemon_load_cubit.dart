@@ -5,17 +5,18 @@ import 'package:pokedex_app/features/pokemon/presentation/cubit/pokemon_status.d
 
 import '../../domain/repositories/pokemon_repository.dart';
 
-class PokemonCubit extends Cubit<PokemonState> {
-  PokemonCubit(this._pokemonRepository) : super(PokemonState.initialState());
+class LazyPokemonCubit extends Cubit<PokemonState> {
+  LazyPokemonCubit(this._pokemonRepository)
+      : super(PokemonState.initialState());
 
   final PokemonRepository _pokemonRepository;
 
-  void getPokemonList() async {
+  void updatePokemonList(int offset, int limit) async {
     emit(state.copyWith(status: PokemonStatus.loading));
 
     try {
       final List<PokemonEntity> pokemonList =
-          await _pokemonRepository.getPokemonList(0, 20);
+          await _pokemonRepository.getPokemonList(offset, limit);
       emit(state.copyWith(
           status: PokemonStatus.success, pokemonList: pokemonList));
     } catch (e) {
