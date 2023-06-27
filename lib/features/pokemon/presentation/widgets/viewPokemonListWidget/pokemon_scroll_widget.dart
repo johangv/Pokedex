@@ -75,7 +75,7 @@ class _PokemonScrollWidgetState extends State<PokemonScrollWidget> {
               setState(() {
                 selectedIndex = buttonIndex;
               });
-              context.read<PokemonCubit>().updateSelectedPokemon(selectedIndex);
+              context.read<PokemonCubit>().updateSelectedPokemon(buttonIndex);
             },
           );
         },
