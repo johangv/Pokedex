@@ -26,6 +26,8 @@ class _PokedexScreenState extends State<PokedexScreen> {
   List<PokemonEntity> pokemonList = [];
   final AppColors appColors = AppColors();
 
+  late PokemonEntity selectedPokemon;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -33,20 +35,19 @@ class _PokedexScreenState extends State<PokedexScreen> {
       appBar: MyAppBars.getPokedexAppBar(context, 'POKÉDEX_'),
       body: BlocProvider(
         create: (_) => getIt<PokemonCubit>()..getPokemonList(),
-        child: BlocBuilder<PokemonCubit, PokemonState>(
+        child: BlocConsumer<PokemonCubit, PokemonState>(
+          listener: (context, state) {
+            if (state.status == PokemonStatus.success) {
+              pokemonList.addAll(state.pokemonList);
+            }
+          },
           builder: (context, state) {
             //If my status is loading, show the charging animation
             if (state.status == PokemonStatus.loading) {
               return const ChargingAnimation();
               //If my status is success, show the PokedexScreen
             } else if (state.status == PokemonStatus.success) {
-              pokemonList = state.pokemonList;
-              final selectedPokemon = pokemonList[selectedIndex];
-              void setSelectedItem(int newIndex) {
-                setState(() {
-                  selectedIndex = newIndex;
-                });
-              }
+              selectedPokemon = pokemonList[state.pokemonIndex];
 
               return SingleChildScrollView(
                 child: Column(
@@ -55,8 +56,8 @@ class _PokedexScreenState extends State<PokedexScreen> {
                     PokemonViewWidget(pokemon: selectedPokemon),
                     //Pokemon GridView
                     ViewPokemonListWidget(
-                        pokemonList: pokemonList,
-                        setSelectedIndex: setSelectedItem),
+                      pokemonList: pokemonList,
+                    ),
                   ],
                 ),
               );

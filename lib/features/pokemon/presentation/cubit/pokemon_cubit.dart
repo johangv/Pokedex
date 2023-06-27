@@ -22,4 +22,20 @@ class PokemonCubit extends Cubit<PokemonState> {
       emit(state.copyWith(status: PokemonStatus.error, error: e.toString()));
     }
   }
+
+  void updatePokemonList(int offset, int limit) async {
+    try {
+      final List<PokemonEntity> pokemonList =
+          await _pokemonRepository.getPokemonList(offset, limit);
+      emit(state.copyWith(
+          status: PokemonStatus.success, pokemonList: pokemonList));
+    } catch (e) {
+      emit(state.copyWith(status: PokemonStatus.error, error: e.toString()));
+    }
+  }
+
+  void updateSelectedPokemon(int selectedIndex) async {
+    emit(state.copyWith(
+        status: PokemonStatus.success, pokemonIndex: selectedIndex));
+  }
 }
