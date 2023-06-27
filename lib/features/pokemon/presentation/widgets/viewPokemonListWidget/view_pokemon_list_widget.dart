@@ -1,44 +1,35 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:pokedex_app/dependencies.dart';
 import 'package:pokedex_app/features/pokemon/domain/entities/pokemon_entity.dart';
-import 'package:pokedex_app/features/pokemon/presentation/cubit/lazy_pokemon_load_cubit.dart';
 import 'package:pokedex_app/features/pokemon/presentation/widgets/viewPokemonListWidget/pokemon_scroll_widget.dart';
 import '../../../../utils/app_colors.dart';
 
 class ViewPokemonListWidget extends StatelessWidget {
   final List<PokemonEntity> pokemonList;
-  final Function(int selectedIndex) setSelectedIndex;
-  const ViewPokemonListWidget(
-      {super.key, required this.pokemonList, required this.setSelectedIndex});
+  const ViewPokemonListWidget({super.key, required this.pokemonList});
 
   @override
   Widget build(BuildContext context) {
     final AppColors appColors = AppColors();
 
-    return BlocProvider(
-      create: (_) => getIt<LazyPokemonCubit>(),
-      child: Container(
-        padding: const EdgeInsets.only(top: 10.0, bottom: 10.0),
-        color: Colors.white,
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Padding(
-              padding: const EdgeInsets.only(top: 20.0, bottom: 10.0),
-              child: Text(
-                "OTHERS",
-                style: TextStyle(
-                    color: appColors.darkGray,
-                    fontWeight: FontWeight.bold,
-                    fontSize: 20.0),
-              ),
+    return Container(
+      padding: const EdgeInsets.only(top: 10.0, bottom: 10.0),
+      color: Colors.white,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Padding(
+            padding: const EdgeInsets.only(top: 20.0, bottom: 10.0),
+            child: Text(
+              "OTHERS",
+              style: TextStyle(
+                  color: appColors.darkGray,
+                  fontWeight: FontWeight.bold,
+                  fontSize: 20.0),
             ),
-            PokemonScrollWidget(
-                pokemonList: pokemonList, setSelectedIndex: setSelectedIndex)
-          ],
-        ),
+          ),
+          PokemonScrollWidget(pokemonList: pokemonList)
+        ],
       ),
     );
   }
